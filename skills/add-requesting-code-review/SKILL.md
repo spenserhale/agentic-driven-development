@@ -11,10 +11,12 @@ Dispatch a code reviewer subagent to catch issues before they cascade. The revie
 
 ## When to Request Review
 
-**Mandatory:**
-- After each task in subagent-driven development
-- After completing major feature
-- Before merge to main
+**Mandatory** (trivial runs excepted: their single commit goes straight to the PR):
+- The final review of a plan executed with add-executing-plans
+- After completing a major feature outside a plan
+- Before opening a PR for work that no other review covered
+
+add-subagent-driven-development runs its own package and final reviewers (its `package-reviewer-prompt.md` and `final-reviewer-prompt.md`); use this skill for everything else.
 
 **Optional but valuable:**
 - When stuck (fresh perspective)
@@ -35,15 +37,15 @@ Use Task tool with `general-purpose` type, fill template at `code-reviewer.md`
 
 **Placeholders:**
 - `{DESCRIPTION}` - Brief summary of what you built
-- `{PLAN_OR_REQUIREMENTS}` - What it should do
+- `{PLAN_OR_REQUIREMENTS}` - What it should do (the plan doc path, or the task text)
 - `{BASE_SHA}` - Starting commit
 - `{HEAD_SHA}` - Ending commit
 
 **3. Act on feedback:**
 - Fix Critical issues immediately
 - Fix Important issues before proceeding
-- Note Minor issues for later
-- Push back if reviewer is wrong (with reasoning)
+- Note Minor issues as rulings in the plan (unattended: nobody else will remember them)
+- Push back if reviewer is wrong (with reasoning, recorded as a ruling)
 
 ## Example
 
@@ -57,7 +59,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 [Dispatch code reviewer subagent]
   DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
-  PLAN_OR_REQUIREMENTS: Task 2 from docs/add/plans/deployment-plan.md
+  PLAN_OR_REQUIREMENTS: T2 from docs/plans/2026-10-25-deployment.md
   BASE_SHA: a7981ec
   HEAD_SHA: 3df7661
 
@@ -75,13 +77,12 @@ You: [Fix progress indicators]
 ## Integration with Workflows
 
 **Subagent-Driven Development:**
-- Review after EACH task
-- Catch issues before they compound
-- Fix before moving to next task
+- Uses its own reviewers: a package reviewer per risky task or batch, then a fresh final reviewer
+- This template is for ad-hoc checks outside that loop
 
 **Executing Plans:**
-- Review after each task or at natural checkpoints
-- Get feedback, apply, continue
+- Review the whole change (start SHA..HEAD) against the plan before finishing
+- Fix Critical and Important findings, each as its own atomic commit with its tests and docs
 
 **Ad-Hoc Development:**
 - Review before merge
@@ -100,4 +101,4 @@ You: [Fix progress indicators]
 - Show code/tests that prove it works
 - Request clarification
 
-See template at: requesting-code-review/code-reviewer.md
+See template at: `code-reviewer.md`, beside this skill.

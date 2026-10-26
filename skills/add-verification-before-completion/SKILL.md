@@ -48,6 +48,7 @@ Skip any step = lying, not verifying
 | Regression test works | Red-green cycle verified | Test passes once |
 | Agent completed | VCS diff shows changes | Agent reports "success" |
 | Requirements met | Line-by-line checklist | Tests passing |
+| Docs match the change | Commit diff shows the spec slice, changelog line, and decision record | "Docs are next" |
 
 ## Red Flags - STOP
 

@@ -164,8 +164,8 @@ You MUST complete each phase before proceeding to the next.
 4. **When You Don't Know**
    - Say "I don't understand X"
    - Don't pretend to know
-   - Ask for help
-   - Research more
+   - Research more (code, docs, history, a fresh Explore subagent)
+   - Still unclear: decide, record a ruling, and test the decision; as a subagent, report NEEDS_CONTEXT or BLOCKED
 
 ### Phase 4: Implementation
 
@@ -194,7 +194,7 @@ You MUST complete each phase before proceeding to the next.
    - Count: How many fixes have you tried?
    - If < 3: Return to Phase 1, re-analyze with new information
    - **If ≥ 3: STOP and question the architecture (step 5 below)**
-   - DON'T attempt Fix #4 without architectural discussion
+   - DON'T attempt Fix #4 without questioning the architecture first (step 5)
 
 5. **If 3+ Fixes Failed: Question Architecture**
 
@@ -208,7 +208,7 @@ You MUST complete each phase before proceeding to the next.
    - Are we "sticking with it through sheer inertia"?
    - Should we refactor architecture vs. continue fixing symptoms?
 
-   **Decide the architectural call yourself — do not stop for a human.** Record the suspected wrong architecture, the fixes already tried, and your chosen path in the Assumptions & Decisions log. Then either implement the best-judgment structural fix, or — if it is genuinely out of scope for this task — record it as a deferred TODO for the PR and route around it. Do not keep patching symptoms, and do not stall waiting for input.
+   **Decide the architectural call yourself — do not stop for a human.** Record the suspected wrong architecture, the fixes already tried, and your chosen path as a ruling — or as a decision record if the structural fix is a strong call (add-documenting-changes). Then either implement the best-judgment structural fix, or — if it is genuinely out of scope for this task — record it under the plan's `## Deferred` for the PR and route around it. Do not keep patching symptoms, and do not stall waiting for input.
 
    This is NOT a failed hypothesis - this is a wrong architecture.
 
@@ -231,9 +231,9 @@ If you catch yourself thinking:
 
 **If 3+ fixes failed:** Question the architecture (see Phase 4.5)
 
-## your human partner's Signals You're Doing It Wrong
+## Signals You're Doing It Wrong
 
-**Watch for these redirections:**
+**No one is watching to redirect you, so ask yourself what a reviewer would say:**
 - "Is that not happening?" - You assumed without verifying
 - "Will it show us...?" - You should have added evidence gathering
 - "Stop guessing" - You're proposing fixes without understanding

@@ -21,7 +21,7 @@ Write the test first. Watch it fail. Write minimal code to pass.
 - Refactoring
 - Behavior changes
 
-**Exceptions (decide yourself and record in the Assumptions & Decisions log — no human to ask):**
+**Exceptions (decide yourself and record a ruling in the plan's `## Rulings` — no human to ask):**
 - Throwaway prototypes
 - Generated code
 - Configuration files
@@ -343,7 +343,7 @@ Can't check all boxes? You skipped TDD. Start over.
 
 | Problem | Solution |
 |---------|----------|
-| Don't know how to test | Write wished-for API. Write assertion first. Reason it out yourself; record the approach in the decisions log. |
+| Don't know how to test | Write wished-for API. Write assertion first. Reason it out yourself; record the approach as a ruling. |
 | Test too complicated | Design too complicated. Simplify interface. |
 | Must mock everything | Code too coupled. Use dependency injection. |
 | Test setup huge | Extract helpers. Still complex? Simplify design. |
@@ -368,4 +368,4 @@ Production code → test exists and failed first
 Otherwise → not TDD
 ```
 
-No exceptions unless one of the listed exception cases genuinely applies — and when it does, record the call in the Assumptions & Decisions log.
+No exceptions unless one of the listed exception cases genuinely applies — and when it does, record the call as a ruling.

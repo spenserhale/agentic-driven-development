@@ -56,10 +56,18 @@ Task tool (general-purpose):
     - Integration tests where they matter?
     - All tests passing?
 
+    **Docs and decisions:**
+    - Does each spec the change touches now state the shipped behavior, and only that?
+    - Are the changelog and affected guides updated in the same commits as the code?
+    - Does every strong decision (hard to reverse, new dependency or pattern, public
+      interface, security, pricing) have a decision record?
+    - Does anything contradict a spec or an accepted decision record without a
+      superseding record?
+    - Is every commit atomic: code, tests, and docs together, no "docs later" commit?
+
     **Production readiness:**
     - Migration strategy if schema changed?
     - Backward compatibility considered?
-    - Documentation complete?
     - No obvious bugs?
 
     ## Calibration
@@ -84,10 +92,11 @@ Task tool (general-purpose):
     [Bugs, security issues, data loss risks, broken functionality]
 
     #### Important (Should Fix)
-    [Architecture problems, missing features, poor error handling, test gaps]
+    [Architecture problems, missing features, poor error handling, test gaps,
+    docs that disagree with the code, strong decisions without a record]
 
     #### Minor (Nice to Have)
-    [Code style, optimization opportunities, documentation polish]
+    [Code style, optimization opportunities, wording polish in docs]
 
     For each issue:
     - File:line reference

@@ -11,7 +11,9 @@ opening a pull request. There is no application code — the "product" is the sk
 
 It is a de-hooked clone of `AgenticDevelopmentSkills`: no plugin manifest, no SessionStart hook,
 no auto-injection. A run starts only when the user invokes
-`/agentic-driven-development <task>`.
+`/agentic-driven-development <task>`. Its execution model (sizing, a task graph written for
+parallel work, tiered agents, selective and final reviews, rulings) is adapted from superlite,
+without superlite's scripts or hooks.
 
 ## Structure
 
@@ -19,9 +21,11 @@ no auto-injection. A run starts only when the user invokes
 skills/
   agentic-driven-development/SKILL.md   # boot/router — holds the Unattended Operation Contract
   add-<name>/SKILL.md                   # workflow sub-skills, loaded on demand
-docs/add/
-  specs/   # brainstorming output
-  plans/   # writing-plans output
+  add-documenting-changes/templates/    # fallback spec, decision, and plan templates
+docs/
+  plans/       # this repo's own change plans (when the workflow runs on itself)
+  specs/
+  decisions/
 ```
 
 ## Conventions
@@ -31,7 +35,11 @@ docs/add/
 - Inside skill bodies, reference other skills by their prefixed name: `add-writing-plans`.
 - The skills are **coupled** — they hand off in a fixed order. When editing one, check that its
   hand-off targets and `## Integration` lists still point at skills that exist here.
-- Workflow artifacts default to `docs/add/specs/` and `docs/add/plans/`.
+- Workflow artifacts follow the target project's `## Documentation` section in `AGENTS.md`;
+  the defaults are `docs/plans/`, `docs/specs/`, and `docs/decisions/`.
+- The default paths, the strong-decision triggers, and `add-documenting-changes/templates/` mirror
+  agents-init (`references/project-structure.md` and `assets/` in the skills repo) and the `hdd-`
+  collection. Change them in all three places together.
 
 ## The load-bearing invariant: unattended operation
 
@@ -41,9 +49,12 @@ preserve the Unattended Operation Contract behavior:
 - No approval gates, no clarifying questions, no option menus, no confirmations.
 - Every "ask your human partner" / "get consent" / "present options and wait" from the upstream
   skills must stay converted to **decide + record**.
-- Non-obvious decisions go in the **Assumptions & Decisions** log (seeded in the spec, carried to
-  the plan, reproduced in the PR body).
-- Only unrecoverable external blockers stop a *task* (→ deferred TODO in the PR), never the whole run.
+- Non-obvious decisions are **rulings** in the plan's `## Rulings` (`[scope] decision — why —
+  cost if wrong: low|medium|high, what breaks`), listed costliest first in the PR body. Strong decisions also get a
+  **decision record** in the project's decisions folder.
+- Docs ship with the code: every commit carries its code, tests, and docs.
+- Only unrecoverable external blockers stop a *task* (→ the plan's `## Deferred` and the PR),
+  never the whole run.
 - The terminal state is always a pushed branch + open PR — never a question back to the user.
 
 If you find yourself adding a human touchpoint, you are turning this back into the `hdd` variant.
